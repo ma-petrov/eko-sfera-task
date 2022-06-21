@@ -1,0 +1,10 @@
+#!/bin/bash
+
+python3 -m venv eko_sfera_task
+source venv/bin/activate
+
+pip install --upgrade pip
+
+pip install -r ./requirments.txt
+
+python3 ./main.py

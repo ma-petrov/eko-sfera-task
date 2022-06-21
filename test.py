@@ -3,6 +3,26 @@ from datetime import datetime
 from unittest import main, TestCase
 
 from database import Casting, DataBaseService
+from main import MarketData
+
+JSON_RESPONSE = '{"result": [{"Type": "min", "time": "2022-05-24 02:00", "close": 29070.0, "open": 29185.7, "high": 29185.7, "low": 28829.5, "volume": 173.85453724, "Exchange": "Bitfinex"}, {"Type": "max", "time": "2022-05-24 01:00", "close": 29184.5, "open": 29310.3, "high": 29310.3, "low": 29013.4, "volume": 119.97294608, "Exchange": "Kraken"}, {"Type": "max", "time": "2022-05-25 00:00", "close": 29117.2, "open": 29070.0, "high": 29227.7, "low": 29049.0, "volume": 40.64422544, "Exchange": "Kraken"}]}'
+
+class TestMarketDataMethods(TestCase):
+
+    def test_get_min_max_candles(self):
+        data = DataFrame(dict(
+            dt=['2022-05-24 00:00', '2022-05-24 01:00', '2022-05-24 02:00', '2022-05-24 03:00', '2022-05-25 00:00'],
+            open_value=[29316.9, 29310.3, 29185.7, 29070.0, 29070.0],
+            close_value=[29326.8, 29184.5, 29070.0, 29117.2, 29117.2],
+            high_value=[30445.3, 29310.3, 29185.7, 29227.7, 29227.7],
+            low_value=[29272.4, 29013.4, 28829.5, 29049.0, 29049.0],
+            volume=[263.20838291, 119.97294608, 173.85453724, 40.64422544, 40.64422544],
+            symbol=['XRPEUR', 'BTCUSD', 'BTCUSD', 'BTCUSD', 'BTCUSD'],
+            exchange_name=['Kraken', 'Kraken', 'Bitfinex', 'Kraken', 'Kraken']
+        ))
+        db = DataBaseService('./.test_db.db')
+        db.upload_data(data, 'marketdata_hour_candles', is_replace=True)
+        self.assertEqual(MarketData.get_min_max_candles(db, 'BTCUSD'), JSON_RESPONSE)
 
 class TestCastingMethods(TestCase):
 
@@ -29,6 +49,7 @@ class TestDataBaseServiceMethods(TestCase):
             db.generate_insert_query(data, table_name),
             "INSERT INTO simple_new_table (text_data, time_data, float_num) VALUES ('some text data', '1999-02-22 04:30', 13.312)"
         )
+
 
 if __name__ == '__main__':
     main()
