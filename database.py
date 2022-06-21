@@ -1,3 +1,4 @@
+from pandas import DataFrame
 from datetime import datetime
 from sqlite3 import connect
 
@@ -63,7 +64,7 @@ class DataBaseService():
 
     def insert_data(self, data, table_name):
         cursor = self.conn.cursor()
-        cursor.execute(generate_insert_query(data, table_name))
+        cursor.execute(self.generate_insert_query(data, table_name))
         self.conn.commit()
 
     def upload_data(self, data, table_name, is_replace=False):
