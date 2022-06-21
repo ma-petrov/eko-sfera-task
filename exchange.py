@@ -102,7 +102,7 @@ class BitfinexExchange(Exchange):
         row_data = loads(response.text)
 
         return DataFrame(dict(
-            dt=[datetime.fromtimestamp(i[0]/1000, tz=None) for i in row_data],
+            dt=[datetime.fromtimestamp(int(i[0])/1000, tz=None) for i in row_data],
             open_value=[i[1] for i in row_data],
             close_value=[i[2] for i in row_data],
             high_value=[i[3] for i in row_data],

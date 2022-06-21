@@ -1,2 +1,8 @@
+# database files
 *.db
+
+# application status data
 .meta
+
+# virtual environment files
+eko_sfera_task/*
