@@ -51,10 +51,9 @@ class MarketData():
                     'volume': row.volume,
                     'Exchange': row.exchange_name
                 })
-            result = response_obj
+            return dumps(response_obj)
         else:
-            result = 'no candles data for specified symbol'
-        return dumps(dict(result=result))
+            return dumps(dict(result='no candles data for specified symbol'))
         
 
 def get_meta():

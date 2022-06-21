@@ -5,7 +5,7 @@ from unittest import main, TestCase
 from database import Casting, DataBaseService
 from main import MarketData
 
-JSON_RESPONSE = '{"result": [{"Type": "min", "time": "2022-05-24 02:00", "close": 29070.0, "open": 29185.7, "high": 29185.7, "low": 28829.5, "volume": 173.85453724, "Exchange": "Bitfinex"}, {"Type": "max", "time": "2022-05-24 01:00", "close": 29184.5, "open": 29310.3, "high": 29310.3, "low": 29013.4, "volume": 119.97294608, "Exchange": "Kraken"}, {"Type": "max", "time": "2022-05-25 00:00", "close": 29117.2, "open": 29070.0, "high": 29227.7, "low": 29049.0, "volume": 40.64422544, "Exchange": "Kraken"}]}'
+JSON_RESPONSE = '[{"Type": "min", "time": "2022-05-24 02:00", "close": 29070.0, "open": 29185.7, "high": 29185.7, "low": 28829.5, "volume": 173.85453724, "Exchange": "Bitfinex"}, {"Type": "max", "time": "2022-05-24 01:00", "close": 29184.5, "open": 29310.3, "high": 29310.3, "low": 29013.4, "volume": 119.97294608, "Exchange": "Kraken"}, {"Type": "max", "time": "2022-05-25 00:00", "close": 29117.2, "open": 29070.0, "high": 29227.7, "low": 29049.0, "volume": 40.64422544, "Exchange": "Kraken"}]'
 
 class TestMarketDataMethods(TestCase):
 
