@@ -78,6 +78,17 @@ class DataBaseService():
         cursor.execute(self.generate_insert_query(data, table_name))
         self.conn.commit()
 
+    def create_table(self, table_name, columns_types, is_replace=False):
+        query = f'CREATE TABLE {table_name} ({", ".join([f"{col_name} {col_type}" for col_name, col_type in columns_types.items()])})'
+        cursor = self.conn.cursor()
+        if is_replace:
+            try:
+                cursor.execute(f'DROP TABLE {table_name}')
+            except:
+                pass
+        cursor.execute(query)
+        return query
+
     def load_data(self, table_name):
         cursor = self.conn.cursor()
         cursor.execute(f'SELECT * FROM {table_name}')

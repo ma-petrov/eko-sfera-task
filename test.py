@@ -7,6 +7,8 @@ from main import MarketData
 
 JSON_RESPONSE = '[{"Type": "min", "time": "2022-05-24 02:00", "close": 29070.0, "open": 29185.7, "high": 29185.7, "low": 28829.5, "volume": 173.85453724, "Exchange": "Bitfinex"}, {"Type": "max", "time": "2022-05-24 01:00", "close": 29184.5, "open": 29310.3, "high": 29310.3, "low": 29013.4, "volume": 119.97294608, "Exchange": "Kraken"}, {"Type": "max", "time": "2022-05-25 00:00", "close": 29117.2, "open": 29070.0, "high": 29227.7, "low": 29049.0, "volume": 40.64422544, "Exchange": "Kraken"}]'
 
+CREATE_TABLE = 'CREATE TABLE marketdata_hour_candles (dt TEXT, dt_timestamp INTEGER, open_value TEXT, close_value TEXT, high_value TEXT, low_value TEXT, volume TEXT, symbol TEXT, exchange_name TEXT)'
+
 class TestMarketDataMethods(TestCase):
 
     def test_get_min_max_candles(self):
@@ -50,6 +52,21 @@ class TestDataBaseServiceMethods(TestCase):
             "INSERT INTO simple_new_table (text_data, time_data, float_num) VALUES ('some text data', '1999-02-22 04:30', 13.312)"
         )
 
+    def test_create_table(self):
+        table_name = 'marketdata_hour_candles'
+        columns_types = dict(
+            dt='TEXT',
+            dt_timestamp='INTEGER',
+            open_value='TEXT',
+            close_value='TEXT',
+            high_value='TEXT',
+            low_value='TEXT',
+            volume='TEXT',
+            symbol='TEXT',
+            exchange_name='TEXT'
+        )
+        db = DataBaseService('./.test_db.db')
+        self.assertEqual(db.create_table(table_name, columns_types, is_replace=True), CREATE_TABLE)
 
 if __name__ == '__main__':
     main()
